@@ -1,7 +1,7 @@
 application:
   timezone: "GMT"
   debug: true
-  name: "rest.system.local"
+  name: "api.local"
 
   modules:
     - user
@@ -16,9 +16,9 @@ application:
         settings:
           host: "localhost"
           port: "3306"
-          username: "rest"
-          password: "system"
-          dbname: "rest"
+          username: "api"
+          password: "secret"
+          dbname: "api"
           options:
             1002: "SET NAMES utf8"
     cache:
@@ -35,8 +35,8 @@ application:
           port: "6379"
           persistent: 0
           index: 1
-          statsKey: "rest"
-          prefix: "rest"
+          statsKey: "api"
+          prefix: "api"
 
   eventsManagers:
     responseManager:

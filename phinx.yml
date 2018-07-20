@@ -9,9 +9,9 @@ environments:
     development:
         adapter: mysql
         host: localhost
-        name: rest
-        user: rest
-        pass: system
+        name: api
+        user: api
+        pass: secret
         port: 3306
         charset: utf8
         collation: utf8_unicode_ci
