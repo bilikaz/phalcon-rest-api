@@ -1,0 +1,10 @@
+modules:
+  client:
+    namespace: "App\\Client"
+
+application:
+  repositories:
+    clientsRepository: "App\\Client\\Repository\\ClientsRepository"
+    clientTypesRepository: "App\\Client\\Repository\\ClientTypesRepository"
+    clientTypeScopesRepository: "App\\Client\\Repository\\ClientTypeScopesRepository"
+    clientTypeUserScopesRepository: "App\\Client\\Repository\\ClientTypeUserScopesRepository"

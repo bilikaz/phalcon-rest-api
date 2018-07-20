@@ -1,0 +1,56 @@
+modules:
+  auth:
+    namespace: "App\\Auth"
+    publicKey: "keys/public.key"
+    privateKey: "keys/private.key"
+    password: "secret"
+    routers:
+      login:
+        pattern: "\\/auth\\/(user|client|token)?"
+        prefix: "\\/auth\\/"
+        namespace: "App\\Auth\\Controller"
+        params:
+          defaultRoute:
+            className: "App\\Library\\Api\\Route\\DefaultRoute"
+            params:
+              authEnabled: false
+      authenticate:
+        pattern: "\\/auth\\/user\\/current"
+        prefix: "\\/auth\\/"
+        namespace: "App\\Auth\\Controller"
+        params:
+          scopes: [['user']]
+
+application:
+  services:
+    authManager:
+      className: "App\\Auth\\Service\\AuthManager"
+      services:
+        config:
+          di: "config"
+        request:
+          di: "request"
+        authAccessTokensRepository:
+          di: "authAccessTokensRepository"
+        authCodesRepository:
+          di: "authCodesRepository"
+        authRefreshTokensRepository:
+          di: "authRefreshTokensRepository"
+        authScopesRepository:
+          di: "authScopesRepository"
+        clientsRepository:
+          di: "clientsRepository"
+        usersRepository:
+          di: "usersRepository"
+        userAuthenticatorsRepository:
+          di: "userAuthenticatorsRepository"
+        authenticatorManager:
+          di: "authenticatorManager"
+
+  repositories:
+    authAccessTokensRepository: "App\\Auth\\Repository\\AuthAccessTokensRepository"
+    authCodesRepository: "App\\Auth\\Repository\\AuthCodesRepository"
+    authRefreshTokensRepository: "App\\Auth\\Repository\\AuthRefreshTokensRepository"
+    authScopesRepository: "App\\Auth\\Repository\\AuthScopesRepository"
+
+

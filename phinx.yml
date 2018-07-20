@@ -1,0 +1,19 @@
+paths:
+    migrations: 'db/api/migrations'
+    seeds: 'db/api/seeds'
+
+environments:
+    default_migration_table: phinxlog
+    default_database: development
+
+    development:
+        adapter: mysql
+        host: localhost
+        name: rest
+        user: rest
+        pass: system
+        port: 3306
+        charset: utf8
+        collation: utf8_unicode_ci
+
+version_order: creation

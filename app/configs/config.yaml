@@ -1,0 +1,61 @@
+application:
+  timezone: "GMT"
+  debug: true
+  name: "rest.system.local"
+
+  modules:
+    - user
+    - auth
+    - authenticator
+    - client
+
+  services:
+    db:
+      className: "\\Phalcon\\Db\\Adapter\\Pdo\\Mysql"
+      params:
+        settings:
+          host: "localhost"
+          port: "3306"
+          username: "rest"
+          password: "system"
+          dbname: "rest"
+          options:
+            1002: "SET NAMES utf8"
+    cache:
+      className: "\\Phalcon\\Cache\\Backend\\Redis"
+      signature: ['frontend', 'settings']
+      params:
+        frontend:
+          className: "\\Phalcon\\Cache\\Frontend\\Data"
+          params:
+            settings:
+              lifetime: 60
+        settings:
+          host: "127.0.0.1"
+          port: "6379"
+          persistent: 0
+          index: 1
+          statsKey: "rest"
+          prefix: "rest"
+
+  eventsManagers:
+    responseManager:
+      className: "App\\Library\\Api\\EventsManager\\ResponseManager"
+      signature: ['application', 'defaultResponse']
+      params:
+        application:
+          di: "application"
+        defaultResponse:
+          className: "App\\Library\\Api\\Response\\JsonResponse"
+
+    routeManager:
+      className: "App\\Library\\Api\\EventsManager\\RouteManager"
+      signature: ['defaultRequestMapper', 'authManager']
+      params:
+        defaultRequestMapper:
+          className: "App\\Library\\Api\\Request\\Mapper\\JsonRequestMapper"
+        authManager:
+          di: "authManager"
+
+
+

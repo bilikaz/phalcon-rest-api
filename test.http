@@ -1,0 +1,139 @@
+@domain = http://rest.system.local
+
+#####
+# @name loginUser
+POST {{domain}}/auth/user
+content-type: application/json
+
+{
+    "grant_type": "password",
+    "client_id": "client",
+    "client_secret": "client",
+    "username": "user@system.local",
+    "password": "user",
+    "scope": ""
+}
+
+#####
+# @name authenticateUser
+PUT {{domain}}/auth/user/current
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "code": "6663"
+}
+
+#####
+# @name getibans
+POST {{domain}}/ibans
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "iban": "123123131"
+}
+
+#####
+# @name getibans
+GET {{domain}}/ibans
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "limit": 2,
+    "page": 2
+}
+
+#####
+# @name getAuth
+GET {{domain}}/auth/user/current
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+}
+
+#####
+# @name loginClient
+POST {{domain}}/auth/client
+content-type: application/json
+
+{
+    "grant_type": "client_credentials",
+    "client_id": "client",
+    "client_secret": "client",
+    "scope": ""
+}
+
+#####
+# @name loginToken
+POST {{domain}}/auth/token
+content-type: application/json
+
+{
+    "grant_type": "refresh_token",
+    "client_id": "client",
+    "client_secret": "client",
+    "refresh_token": "def502001b2b286aa31b421900dff6693a9b8cdb5f4a2aa81387fbebfb15736285c0e182b86164630de3d7f75402532717e3a0d27d2ec60807bcd3470dda447442c2eb923f211eeb9be2a9dfadfb48f5f86922a9c3fb44beea9b62ac81fb7f90a970a199d502e151701fb61a5310bb117e2690ee46928c1148436519275e85e26d2558f23a89f3bc2ad0797e17e96f930eefcff46515a8e148b1981cd7b6ad643d1432f43e9ddfe4199750211c99b5621a60a4fa9fe3523deb837b93a4690c038db639c447b2475706428f69cf77ffe6cfd165b7b55f07539af7607b094dc696fa8d88be8986283bf158ac6ed6356bf8cff0044bd81b9548ef2a8271dde8c08c34d780220063899a76f7565627673d8481c9a067a5c4da13812c743ec86225dcc9fbd293cb2e47c0311bf2658006dfdad66c23cf6041ac6395266f4a3c5ce63811b19368b1e209c7f6622b44d23116e7e2fb23556734e8a66caa505af5a18ffedd51435d2b814597fabf02add3750a612bb079e783e68c87eaaf8c7ee1561743daa1b4486c51af"
+}
+
+
+#####
+# @name getUser
+GET {{domain}}/users/current
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+}
+
+#####
+# @name getAuthenticators
+GET {{domain}}/authenticators
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+}
+
+#####
+# @name getUserAuthenticators
+GET {{domain}}/users/current/authenticators
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+}
+
+#####
+# @name addUserAuthenticator
+POST {{domain}}/users/current/authenticators
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "authenticator_id": "pin"
+}
+
+#####
+# @name updateUserAuthenticator
+PUT {{domain}}/users/current/authenticators/pin
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "code": "6663",
+    "status": "active"
+}
+
+#####
+# @name updateUserAuthenticator
+PUT {{domain}}/users/current/authenticators/pin
+Authorization: Bearer {{loginUser.response.body.$.access_token}}
+content-type: application/json
+
+{
+    "code": "6663",
+    "status": "disabled"
+}

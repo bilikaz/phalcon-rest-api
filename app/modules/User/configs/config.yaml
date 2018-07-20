@@ -1,0 +1,18 @@
+modules:
+  user:
+    namespace: "App\\User"
+    routers:
+      user:
+        pattern: "\\/users(\\/.*)?"
+        prefix: "\\/"
+        namespace: "App\\User\\UserController"
+      admin:
+        pattern: "\\/admin\\/users(\\/.*)?"
+        prefix: "\\/admin\\/"
+        namespace: "App\\User\\AdminController"
+
+application:
+  repositories:
+    usersRepository: "App\\User\\Repository\\UsersRepository"
+    userTypesRepository: "App\\User\\Repository\\UserTypesRepository"
+    userTypeScopesRepository: "App\\User\\Repository\\UserTypeScopesRepository"
