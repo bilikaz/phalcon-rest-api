@@ -25,27 +25,6 @@ content-type: application/json
 }
 
 #####
-# @name getibans
-POST {{domain}}/ibans
-Authorization: Bearer {{loginUser.response.body.$.access_token}}
-content-type: application/json
-
-{
-    "iban": "123123131"
-}
-
-#####
-# @name getibans
-GET {{domain}}/ibans
-Authorization: Bearer {{loginUser.response.body.$.access_token}}
-content-type: application/json
-
-{
-    "limit": 2,
-    "page": 2
-}
-
-#####
 # @name getAuth
 GET {{domain}}/auth/user/current
 Authorization: Bearer {{loginUser.response.body.$.access_token}}
