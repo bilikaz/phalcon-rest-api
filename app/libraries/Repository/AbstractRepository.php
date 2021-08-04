@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Library\Repository;
 
 use Phalcon\Di\InjectionAwareInterface,
-    Phalcon\DiInterface,
+    Phalcon\Di\DiInterface,
     Phalcon\Paginator\Adapter\QueryBuilder as PaginatorQueryBuilder;
 
 use App\Library\Api\Exception\ApiException,
@@ -22,13 +22,12 @@ abstract class AbstractRepository implements InjectionAwareInterface
     protected static $repositories = [];
     private $di;
 
-    public function setDI(DiInterface $di)
+    public function setDI(DiInterface $di): void
     {
         $this->di = $di;
-        return $this;
     }
 
-    public function getDI()
+    public function getDI(): DiInterface
     {
         return $this->di;
     }
@@ -78,7 +77,7 @@ abstract class AbstractRepository implements InjectionAwareInterface
     {
         $time = time();
         foreach ($tags as $tag) {
-            $this->getCache()->save($tag . '_expiration', $time);
+            $this->getCache()->set($tag . '_expiration', $time);
         }
     }
 
@@ -98,8 +97,8 @@ abstract class AbstractRepository implements InjectionAwareInterface
         $expiration = $this->getCacheExpiration($tags);
         //prevent cashing old data
         if ($start > $expiration) {
-            $this->getCache()->save($key . '_timestamp', $start);
-            $this->getCache()->save($key, $data);
+            $this->getCache()->set($key . '_timestamp', $start);
+            $this->getCache()->set($key, $data);
         }
         self::$cached[$key] = $data;
         return $data;
@@ -297,7 +296,7 @@ abstract class AbstractRepository implements InjectionAwareInterface
                 $model->{$key} = $value;
             }
         }
-        if (!$model->create($data)) {
+        if (!$model->create()) {
             throw new Exception\RepositoryException('Failed to create', $model);
         }
         if ($this->cacheKeys) {
@@ -325,11 +324,12 @@ abstract class AbstractRepository implements InjectionAwareInterface
                     if (!isset($model->{static::ID})) {
                         $model->{static::ID} = $data[static::ID];
                     }
-                unset($data[static::ID]);
+                    unset($data[static::ID]);
                 }
             }
+
         }
-        if (!$model->save($data)) {
+        if (!$model->save()) {
             throw new Exception\RepositoryException('Failed to save', $model);
         }
         if ($this->cacheKeys) {

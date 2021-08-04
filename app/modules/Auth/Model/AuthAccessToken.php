@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Model;
 
-use DateTime;
+use DateTimeImmutable;
 
 use App\Library\Repository\Model;
 
@@ -29,9 +29,9 @@ class AuthAccessToken extends Model implements AccessTokenEntityInterface
 
     private $clientModel;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'auth_access_tokens';
+        $this->setSource('auth_access_tokens');
     }
 
     public function beforeValidation()
@@ -89,10 +89,10 @@ class AuthAccessToken extends Model implements AccessTokenEntityInterface
 
     public function getExpiryDateTime()
     {
-        return new DateTime('@' . $this->timestamp_expire);
+        return new DateTimeImmutable('@' . $this->timestamp_expire);
     }
 
-    public function setExpiryDateTime(DateTime $dateTime)
+    public function setExpiryDateTime(DateTimeImmutable $dateTime)
     {
         $this->timestamp_expire = $dateTime->getTimestamp();
     }
@@ -110,4 +110,5 @@ class AuthAccessToken extends Model implements AccessTokenEntityInterface
         $this->clientModel = $clientModel;
         $this->client_id = $clientModel->client_id;
     }
+
 }

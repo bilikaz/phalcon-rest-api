@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Auth\Model;
 
-use DateTime;
+use DateTimeImmutable;
 
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface,
     League\OAuth2\Server\Entities\AccessTokenEntityInterface;
@@ -21,9 +21,9 @@ class AuthRefreshToken extends Model implements RefreshTokenEntityInterface
 
     private $accessTokenModel;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'auth_refresh_tokens';
+        $this->setSource('auth_refresh_tokens');
     }
 
     public function beforeValidation()
@@ -36,10 +36,10 @@ class AuthRefreshToken extends Model implements RefreshTokenEntityInterface
 
     public function getExpiryDateTime()
     {
-        return new DateTime('@' . $this->timestamp_expire);
+        return new DateTimeImmutable('@' . $this->timestamp_expire);
     }
 
-    public function setExpiryDateTime(DateTime $dateTime)
+    public function setExpiryDateTime(DateTimeImmutable $dateTime)
     {
         $this->timestamp_expire = $dateTime->getTimestamp();
     }

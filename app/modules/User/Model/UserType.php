@@ -11,9 +11,9 @@ class UserType extends Model
     public $user_type_id;
     public $title;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'user_types';
+        $this->setSource('user_types');
     }
 
 }

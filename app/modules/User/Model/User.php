@@ -17,9 +17,9 @@ class User extends UserModel
     public $timestamp_created;
     public $timestamp_updated;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'users';
+        $this->setSource('users');
     }
 
     public function beforeValidation()
@@ -35,7 +35,7 @@ class User extends UserModel
         $this->timestamp_updated = time();
     }
 
-    public function toArray($columns = null)
+    public function toArray($columns = null): array
     {
         $array = parent::toArray($columns);
 

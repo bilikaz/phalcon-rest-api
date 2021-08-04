@@ -10,10 +10,10 @@ class UserTypeScope extends Model
 
     public $user_type_id;
     public $scope_id;
-
-    public function getSource()
+    
+    public function initialize()
     {
-        return 'user_type_scopes';
+        $this->setSource('user_type_scopes');
     }
 
 }

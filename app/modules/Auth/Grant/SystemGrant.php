@@ -32,11 +32,10 @@ class SystemGrant extends AbstractGrant
         $refreshToken = $this->issueRefreshToken($accessToken);
 
         $expireDateTime = $accessToken->getExpiryDateTime()->getTimestamp();
-        $jwtAccessToken = $accessToken->convertToJWT($this->privateKey);
         return [
             'token_type'   => 'Bearer',
             'expires_in'   => $expireDateTime - (new \DateTime())->getTimestamp(),
-            'access_token' => (string) $jwtAccessToken,
+            'access_token' => (string) $accessToken,
             'refresh_token' => $this->encrypt(json_encode([
                 'client_id'        => $accessToken->getClient()->getIdentifier(),
                 'refresh_token_id' => $refreshToken->getIdentifier(),

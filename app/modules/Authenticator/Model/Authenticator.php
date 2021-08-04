@@ -11,9 +11,9 @@ class Authenticator extends Model
     public $authenticator_id;
     public $title;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'authenticators';
+        $this->setSource('authenticators');
     }
 
 }

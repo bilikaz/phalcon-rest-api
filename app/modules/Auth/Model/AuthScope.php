@@ -12,9 +12,9 @@ class AuthScope extends Model implements ScopeEntityInterface
 
     public $scope_id;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'auth_scopes';
+        $this->setSource('auth_scopes');
     }
 
     public function getIdentifier()
@@ -27,9 +27,9 @@ class AuthScope extends Model implements ScopeEntityInterface
         $this->scope_id = $id;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
-        return $this->getIdentifier();
+        return [$this->getIdentifier()];
     }
 
 }

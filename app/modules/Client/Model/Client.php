@@ -17,9 +17,9 @@ class Client extends ClientModel
     public $timestamp_created;
     public $timestamp_updated;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'clients';
+        $this->setSource('clients');
     }
 
     public function beforeValidation()
@@ -30,7 +30,7 @@ class Client extends ClientModel
         $this->timestamp_updated = time();
     }
 
-    public function toArray($columns = null)
+    public function toArray($columns = null): array
     {
         $array = parent::toArray($columns);
 

@@ -11,9 +11,9 @@ class ClientTypeScope extends Model
     public $client_type_id;
     public $scope_id;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'client_type_scopes';
+        $this->setSource('client_type_scopes');
     }
 
 }

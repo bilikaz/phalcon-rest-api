@@ -38,6 +38,13 @@ class UsersRepository extends AbstractRepository implements UserRepositoryInterf
         return $dateHash . $registration;
     }
 
+    public function getList()
+    {
+        $query = $this->query();
+
+        return $this->getResults($query, false);
+    }
+
     private function getLastRegistrationForDateHash($dateHash)
     {
         $query = $this->query()

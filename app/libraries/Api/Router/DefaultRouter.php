@@ -52,11 +52,15 @@ class DefaultRouter implements RouterInterface
     protected function validateScopes(Auth $auth)
     {
         $valid = true;
+
+        $merge = array_merge(...$auth->scopes);
+
         if (isset($this->scopes)) {
             foreach ($this->scopes as $scopes) {
                 $valid = true;
                 foreach ($scopes as $scope) {
-                    if (!in_array($scope, $auth->scopes)) {
+                    if (!in_array($scope, $merge)) {
+
                         $valid = false;
                         break;
                     }

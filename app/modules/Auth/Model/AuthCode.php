@@ -21,9 +21,9 @@ class AuthCode extends Model implements AuthCodeEntityInterface
     public $timestamp_created;
     public $timestamp_updated;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'auth_codes';
+        $this->setSource('auth_codes');
     }
 
     public function afterFetch()
@@ -83,7 +83,7 @@ class AuthCode extends Model implements AuthCodeEntityInterface
 
     public function getExpiryDateTime()
     {
-        return new DateTime('@' . $this->timestamp_expire);
+        return new DateTimeImmutable('@' . $this->timestamp_expire);
     }
 
     public function setExpiryDateTime($dateTime)

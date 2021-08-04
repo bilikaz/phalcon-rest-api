@@ -11,9 +11,9 @@ class ClientType extends Model
     public $client_type_id;
     public $title;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'client_types';
+        $this->setSource('client_types');
     }
 
 }

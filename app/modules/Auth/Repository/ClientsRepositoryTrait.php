@@ -6,7 +6,7 @@ namespace App\Auth\Repository;
 trait ClientsRepositoryTrait
 {
 
-    public function getClientEntity($id, $grantType, $clientSecret = null, $mustValidateSecret = true)
+    public function getClientEntity($id)
     {
         $query = $this->query('client')
             ->andWhere('client.status = :status:', ['status' => 'active'])
@@ -17,9 +17,15 @@ trait ClientsRepositoryTrait
         if (!$clientModel) {
             return null;
         }
-        if ($mustValidateSecret === true && !password_verify($clientSecret, $clientModel->secret)) {
-            return null;
-        }
+        
         return $clientModel;
     }
+
+    public function validateClient($id, $clientSecret, $grantType)
+    {
+        $clientModel = $this->getClientEntity($id);
+
+        return password_verify($clientSecret, $clientModel->secret);
+    }
+
 }

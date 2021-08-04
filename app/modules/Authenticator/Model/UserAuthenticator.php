@@ -13,9 +13,9 @@ class UserAuthenticator extends Model
     public $setup;
     public $params;
 
-    public function getSource()
+    public function initialize()
     {
-        return 'user_authenticators';
+        $this->setSource('user_authenticators');
     }
 
     public function afterFetch()

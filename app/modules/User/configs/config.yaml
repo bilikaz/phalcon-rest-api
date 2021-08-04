@@ -9,6 +9,8 @@ modules:
       admin:
         pattern: "\\/admin\\/users(\\/.*)?"
         prefix: "\\/admin\\/"
+        params:
+          scopes: [['user'], ['administrator', 'supervisor']]
         namespace: "App\\User\\AdminController"
 
 application:

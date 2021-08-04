@@ -23,6 +23,9 @@ class ResponseManager
         $this->defaultResponse = $defaultResponse;
         $application->error(
             function ($exception) use ($application) {
+                if (!is_a($exception, 'Exception')) {
+                    $exception = new Exception($exception . '');
+                }
                 $this->exception($exception, $application);
             }
         );

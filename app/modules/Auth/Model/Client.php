@@ -44,4 +44,9 @@ class Client extends Model implements ClientEntityInterface
         $this->client_id = $id;
     }
 
+    public function isConfidential()
+    {
+        return false;
+    }
+
 }
